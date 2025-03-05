@@ -70,7 +70,7 @@ function App() {
               Add Task
             </button>
           </div>
-          <UpcomingTasks />
+          <UpcomingTasks tasks={tasks} setTasks={setTasks} completedTasks={completedTasks} setCompletedTasks={setCompletedTasks}/>
           <div className="completed-task-list">
             <h2 className="cheading">Completed Tasks</h2>
             <table>

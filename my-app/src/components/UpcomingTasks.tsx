@@ -1,10 +1,15 @@
 import React from "react";
 import {Task} from "../types/types";
 
-
-const UpcomingTasks = (props: any) => {
-    const [tasks, setTasks] = React.useState<Task[]>([]);
-    const [completedTasks, setCompletedTasks] = React.useState<Task[]>([]);
+interface UpcomingTasksProps {
+    tasks: Task[]; // Task array type from App.tsx
+    setTasks: (tasks: Task[]) => void;
+    completedTasks: Task[];
+    setCompletedTasks: (tasks: Task[]) => void;
+}
+const UpcomingTasks: React.FC<UpcomingTasksProps> = ({tasks, setTasks, completedTasks, setCompletedTasks}) => {
+    //const [tasks, setTasks] = React.useState<Task[]>([]);
+    //const [completedTasks, setCompletedTasks] = React.useState<Task[]>([]);
 
     const markDone = (id: number) => {
         const updatedTasks = tasks.map((task) => task.id === id ? { ...task, done: true } : task);
