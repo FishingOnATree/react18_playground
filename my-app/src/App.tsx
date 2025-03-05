@@ -1,14 +1,7 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
-type Task = {
-  id: number;
-  task: string;
-  priority: string;
-  deadline: Date;
-  done: boolean;
-}
+import {UpcomingTasks} from "./components/UpcomingTasks";
+import {Task} from "./types/types";
 
 function App() {
   const [tasks, setTasks] = React.useState<Task[]>([]);
@@ -30,13 +23,10 @@ function App() {
   };
 
   const addTask = () => {
-    console.log(task)
-    console.log(deadline)
     if (task === '' || deadline === '') {
       alert('Please add a task!');
       return
     }
-    const selectedDate = new Date(deadline);
     const newTask = {
       id: Math.round(Math.random() * 100000),
       task,
@@ -47,16 +37,6 @@ function App() {
     setTasks([...tasks, newTask]);
   }
 
-  const markDone = (id: number) => {
-    const updatedTasks = tasks.map((task) => task.id === id ? { ...task, done: true } : task);
-    setTasks(updatedTasks);
-    const completedTask = tasks.find((task) => task.id === id);
-    if (completedTask) {
-      setCompletedTasks([...completedTasks, completedTask]);
-    }
-  }
-
-  const upcomingTasks = tasks.filter((t) => !t.done);
   return (
       <div className="App">
         <header>
@@ -90,38 +70,7 @@ function App() {
               Add Task
             </button>
           </div>
-          <h2 className="heading">Upcoming Tasks</h2>
-          <div className="task-list" id="task-list">
-            <table>
-              <thead>
-              <tr>
-                <th>Task Name</th>
-                <th>Priority</th>
-                <th>Deadline</th>
-                <th>Action</th>
-              </tr>
-              </thead>
-              <tbody>
-              {upcomingTasks.map((t) => (
-                  <tr key={t.id}>
-                    <td>{t.task}</td>
-                    <td>{t.priority}</td>
-                    <td>{t.deadline.toString()}</td>
-                    <td>
-                      {!t.done && (
-                          <button
-                              className="mark-done"
-                              onClick={() => markDone(t.id)}
-                          >
-                            Mark Done
-                          </button>
-                      )}
-                    </td>
-                  </tr>
-              ))}
-              </tbody>
-            </table>
-          </div>
+          <UpcomingTasks />
           <div className="completed-task-list">
             <h2 className="cheading">Completed Tasks</h2>
             <table>
